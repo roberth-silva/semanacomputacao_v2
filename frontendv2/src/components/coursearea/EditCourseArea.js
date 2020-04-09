@@ -46,8 +46,7 @@ export default function EditCourseArea(e) {
 
       try {
           await api.put('coursearea', data);
-          history.push('/coursearea');
-          //console.log(data);
+          history.push('/coursearea');          
 
       } catch (error) {
           alert('Erro ao editar área.' + error);
