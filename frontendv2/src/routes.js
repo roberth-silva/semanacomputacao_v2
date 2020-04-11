@@ -7,8 +7,10 @@ import { DefaultLayout } from "./layouts";
 // Route Views
 import Teacher from "./views/Teacher/index";
 import TeacherCreate from "./views/Teacher/create";
-import TeacherList from './views/Teacher/ListTeacher';
-import CourseList from './views/Course/ListCourse';
+import TeacherList from './views/Teacher/list';
+import TeacherEdit from './views/Teacher/edit';
+import CourseList from './views/Course/list';
+import CourseCreate from './views/Course/create';
 import CourseAreaList from './views/CourseArea/index';
 import CourseAreaCreate from './views/CourseArea/create';
 import CourseAreaEdit from './views/CourseArea/edit';
@@ -25,7 +27,7 @@ export default [
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/coursearea" />
+    component: () => <Redirect to="/course-list" />
   },
   {
     path: "/teacher",
@@ -43,9 +45,19 @@ export default [
     component: TeacherList
   },
   {
+    path: "/teacher-edit",
+    layout: DefaultLayout,
+    component: TeacherEdit
+  },
+  {
     path: "/course-list",
     layout: DefaultLayout,
     component: CourseList
+  },
+  {
+    path: "/course-create",
+    layout: DefaultLayout,
+    component: CourseCreate
   },
   {
     path: "/coursearea",

@@ -14,26 +14,23 @@ import {
   Row,
   Col,
   Form,
-  FormGroup,
   FormInput,
-  FormSelect,
-  FormTextarea,
   Button
 } from "shards-react";
 
-import {FiEdit} from 'react-icons/fi';
 
-export default function EditCourseArea(e) {
+export default function EditCourseArea(e) {  
 
-  const [courseareas, setCourseArea] = useState([]);
-
+  const [initials, setInitials] = useState('');
   const [description, setDescription] = useState('');  
 
   const id = localStorage.getItem('courseAreaId');
 
   useEffect(()=>{    
-      api.get(`coursearea/${id}`, {}).then(response => {
-        setCourseArea(response.data);
+      api.get(`coursearea/${id}`, {})
+      .then(response => {                
+        setInitials(response.data[0].initials);
+        setDescription(response.data[0].description);        
       });
   },[]);  
 
@@ -42,7 +39,7 @@ export default function EditCourseArea(e) {
   async function handleEditArea(e){
       e.preventDefault();
 
-      const data = {id, description};
+      const data = {id, initials, description};
 
       try {
           await api.put('coursearea', data);
@@ -66,23 +63,33 @@ return(
       <ListGroupItem className="p-3">
         <Row>
           <Col>
-            <Form onSubmit={handleEditArea}>
+            <Form onSubmit={handleEditArea}>            
               <Row form>                
                 <Col md="12" className="form-group">
-                  <label htmlFor="txtDescription">Descrição</label>
-                  {courseareas.map(coursearea => (
-                    <FormInput                    
+                  <label htmlFor="txtInitials">Sigla</label>                  
+                  <FormInput                    
+                    id="txtInitials"
+                    placeholder="Sigla da área"
+                    defaultValue={initials}
+                    onChange={e => setInitials(e.target.value)}
+                  />
+                </Col>
+              </Row>
+              <Row form>                
+                <Col md="12" className="form-group">
+                  <label htmlFor="txtDescription">Descrição</label>                  
+                    <FormInput
                       id="txtDescription"
-                      defaultValue={coursearea.description}
+                      defaultValue={description}
                       placeholder="Área"
                       onChange={e => setDescription(e.target.value)}
                     />
-                  ))}
                 </Col>                
               </Row>
+            
               <Row>
                 <Col>
-                <Button theme="success" className="mb-2 mr-1" type="submit">
+                  <Button theme="success" className="mb-2 mr-1" type="submit">
                       <FiCheckCircle size={18} color="#ffffff" />
                   </Button>
                 </Col>

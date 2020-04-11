@@ -3,6 +3,7 @@ exports.up = function(knex) {
     return knex.schema.createTable('coursearea', function(table){
         table.increments();        
         table.text('description').notNullable();
+        table.text('initials').notNullable();
         table.timestamps(true, true);
     });  
 };

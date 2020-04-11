@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardHeader, CardBody, Button } from "shards-react";
+import { Card, CardHeader, CardBody, Button, Row, Col } from "shards-react";
 import {FiEdit, FiTrash2} from 'react-icons/fi';
+import {TiDocumentAdd} from 'react-icons/ti';
 
 import {useHistory} from 'react-router-dom';
 
@@ -17,6 +18,10 @@ export default function IndexCourseArea(){
           setCourseArea(response.data);
         });
     },[]);
+
+    function handleNewArea(){      
+      history.push('/coursearea-create');
+    }
 
     function handleEditArea(id){
       localStorage.setItem('courseAreaId', id);
@@ -38,7 +43,17 @@ export default function IndexCourseArea(){
   
         <Card small className="mb-4">
           <CardHeader className="border-bottom">
-            <h6 className="m-0">Áreas cadastradas</h6>
+            <Row>
+              <Col>
+                <h6 className="m-0">Áreas cadastradas</h6>
+              </Col>
+              <Col className="text-right view-report">                  
+                <Button theme="white" className="mb-2 mr-1" onClick={handleNewArea} type="button">
+                    <TiDocumentAdd size={20} color="#8B2500" />
+                </Button>
+              </Col>
+            </Row>
+            
           </CardHeader>
           <CardBody className="p-0 pb-3">
             <table className="table mb-0">
@@ -46,6 +61,9 @@ export default function IndexCourseArea(){
                 <tr>
                   <th scope="col" className="border-0">
                     Id
+                  </th>
+                  <th scope="col" className="border-0">
+                    Sigla
                   </th>
                   <th scope="col" className="border-0">
                     Nome
@@ -60,6 +78,7 @@ export default function IndexCourseArea(){
                   {courseareas.map(coursearea =>(
                     <tr key={coursearea.id}>
                         <td>{coursearea.id}</td>
+                        <td>{coursearea.initials}</td>
                         <td>{coursearea.description}</td>
                         <td>{coursearea.created_at}</td>
                         <td>

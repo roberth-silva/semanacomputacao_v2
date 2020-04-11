@@ -7,7 +7,10 @@ const courseAreaController = require('./controllers/CourseAreaController');
 const routes = express.Router();
 
 routes.get('/teacher', teacherController.index);
+routes.get('/teacher/:id', teacherController.getTeacher);
 routes.post('/teacher', teacherController.create);
+routes.put('/teacher', teacherController.edit);
+routes.delete('/teacher/:id', teacherController.delete);
 
 routes.get('/course', courseController.index);
 routes.post('/course', courseController.create);

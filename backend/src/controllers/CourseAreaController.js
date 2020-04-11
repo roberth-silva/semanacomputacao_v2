@@ -23,11 +23,14 @@ module.exports = {
     },
 
     async create(request, response){
-        const {description} = request.body;        
+        const {initials, description} = request.body;
 
         try {
             const [id] = await connection('coursearea')
-            .insert({description});
+            .insert({
+                initials, 
+                description
+            });
 
             return response.json({id});
 
@@ -37,14 +40,17 @@ module.exports = {
     },
 
     async edit(request, response){        
-        const {id, description} = request.body;        
+        const {id, initials, description} = request.body;        
 
         try {
             const {dataReturn} = await connection('coursearea')
             .where('id', id)
-            .update({description: description});
+            .update({
+                initials: initials,
+                description: description
+            });
 
-            return response.json({"id":id, "description":description});
+            return response.json({"id":id, "initials": initials, "description":description});
 
         } catch (error) {
             console.log(error);            

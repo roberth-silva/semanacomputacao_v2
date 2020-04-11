@@ -13,8 +13,10 @@ exports.up = function(knex) {
         table.timestamps(true, true);
 
         table.integer('teacher_id').notNullable();
+        table.integer('coursearea_id').notNullable();
 
         table.foreign('teacher_id').references('id').inTable('teachers');
+        table.foreign('coursearea_id').references('id').inTable('coursearea');
     });
 };
 
